@@ -1,0 +1,528 @@
+{
+  "schema_version": "0.4.0",
+  "metadata": {
+    "name": "diamond_vault",
+    "version": "0.1.0",
+    "build": {
+      "compiler": "rustc 1.84.0",
+      "builder": "cargo-near cargo-near-build 0.4.2"
+    }
+  },
+  "body": {
+    "functions": [
+      {
+        "name": "change_owner",
+        "kind": "call",
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "new_owner_id",
+              "type_schema": {
+                "$ref": "#/definitions/AccountId"
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "$ref": "#/definitions/AccountId"
+          }
+        }
+      },
+      {
+        "name": "claim_vault",
+        "kind": "call",
+        "modifiers": [
+          "payable"
+        ],
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "index",
+              "type_schema": {
+                "type": "integer",
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "contract_source_metadata",
+        "kind": "view"
+      },
+      {
+        "name": "ft_on_transfer",
+        "kind": "call",
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "sender_id",
+              "type_schema": {
+                "$ref": "#/definitions/AccountId"
+              }
+            },
+            {
+              "name": "amount",
+              "type_schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "msg",
+              "type_schema": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "$ref": "#/definitions/PromiseOrValueString"
+          }
+        }
+      },
+      {
+        "name": "get_countdown_period",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      {
+        "name": "get_countdown_period_withdraw",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      {
+        "name": "get_current_timestamp",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      {
+        "name": "get_end_date",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      {
+        "name": "get_ft_token_id",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "$ref": "#/definitions/AccountId"
+          }
+        }
+      },
+      {
+        "name": "get_highest_deposit",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "get_highest_withdraw",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "get_last_deposit",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/DepositInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "get_last_vault",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": [
+              {
+                "type": "integer",
+                "format": "uint64",
+                "minimum": 0.0
+              },
+              {
+                "$ref": "#/definitions/VaultInfo"
+              }
+            ],
+            "maxItems": 2,
+            "minItems": 2
+          }
+        }
+      },
+      {
+        "name": "get_list_deposits",
+        "doc": " Get deposits in paginated view.",
+        "kind": "view",
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "from_index",
+              "type_schema": {
+                "type": "integer",
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            },
+            {
+              "name": "limit",
+              "type_schema": {
+                "type": "integer",
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DepositInfo"
+            }
+          }
+        }
+      },
+      {
+        "name": "get_number_deposits",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      {
+        "name": "get_time_last_deposit",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      {
+        "name": "get_treasury_id",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "$ref": "#/definitions/AccountId"
+          }
+        }
+      },
+      {
+        "name": "get_vault_balance",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "get_vaults",
+        "kind": "view",
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "start_index",
+              "type_schema": {
+                "type": "integer",
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            },
+            {
+              "name": "limit",
+              "type_schema": {
+                "type": "integer",
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/VaultWithIndex"
+            }
+          }
+        }
+      },
+      {
+        "name": "get_vaults_number",
+        "kind": "view",
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      {
+        "name": "is_the_owner",
+        "kind": "view",
+        "modifiers": [
+          "private"
+        ]
+      },
+      {
+        "name": "new",
+        "kind": "call",
+        "modifiers": [
+          "init"
+        ],
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "ft_token_id",
+              "type_schema": {
+                "$ref": "#/definitions/AccountId"
+              }
+            },
+            {
+              "name": "countdown_period_withdraw",
+              "type_schema": {
+                "type": "integer",
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            },
+            {
+              "name": "owner_id",
+              "type_schema": {
+                "$ref": "#/definitions/AccountId"
+              }
+            },
+            {
+              "name": "treasury_id",
+              "type_schema": {
+                "$ref": "#/definitions/AccountId"
+              }
+            },
+            {
+              "name": "treasury_fee",
+              "type_schema": {
+                "type": "integer",
+                "format": "uint128",
+                "minimum": 0.0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "set_countdown_period_withdraw",
+        "kind": "call",
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "new_countdown",
+              "type_schema": {
+                "type": "integer",
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        }
+      },
+      {
+        "name": "set_treasury",
+        "kind": "call",
+        "params": {
+          "serialization_type": "json",
+          "args": [
+            {
+              "name": "new_treasury_id",
+              "type_schema": {
+                "$ref": "#/definitions/AccountId"
+              }
+            }
+          ]
+        },
+        "result": {
+          "serialization_type": "json",
+          "type_schema": {
+            "$ref": "#/definitions/AccountId"
+          }
+        }
+      }
+    ],
+    "root_schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "String",
+      "type": "string",
+      "definitions": {
+        "AccountId": {
+          "description": "NEAR Account Identifier.\n\nThis is a unique, syntactically valid, human-readable account identifier on the NEAR network.\n\n[See the crate-level docs for information about validation.](index.html#account-id-rules)\n\nAlso see [Error kind precedence](AccountId#error-kind-precedence).\n\n## Examples\n\n``` use near_account_id::AccountId;\n\nlet alice: AccountId = \"alice.near\".parse().unwrap();\n\nassert!(\"ƒelicia.near\".parse::<AccountId>().is_err()); // (ƒ is not f) ```",
+          "type": "string"
+        },
+        "DepositInfo": {
+          "type": "object",
+          "required": [
+            "account_id",
+            "date",
+            "deposit_or_withdraw",
+            "ft_amount"
+          ],
+          "properties": {
+            "account_id": {
+              "$ref": "#/definitions/AccountId"
+            },
+            "date": {
+              "type": "integer",
+              "format": "uint64",
+              "minimum": 0.0
+            },
+            "deposit_or_withdraw": {
+              "type": "boolean"
+            },
+            "ft_amount": {
+              "type": "string"
+            }
+          }
+        },
+        "PromiseOrValueString": {
+          "type": "string"
+        },
+        "VaultInfo": {
+          "type": "object",
+          "required": [
+            "claimed",
+            "date_end",
+            "date_start",
+            "token_amount",
+            "token_amount_complete",
+            "winner"
+          ],
+          "properties": {
+            "claimed": {
+              "type": "boolean"
+            },
+            "date_end": {
+              "type": "integer",
+              "format": "uint64",
+              "minimum": 0.0
+            },
+            "date_start": {
+              "type": "integer",
+              "format": "uint64",
+              "minimum": 0.0
+            },
+            "token_amount": {
+              "type": "string"
+            },
+            "token_amount_complete": {
+              "type": "string"
+            },
+            "winner": {
+              "$ref": "#/definitions/AccountId"
+            }
+          }
+        },
+        "VaultWithIndex": {
+          "type": "object",
+          "required": [
+            "index",
+            "vault_info"
+          ],
+          "properties": {
+            "index": {
+              "type": "integer",
+              "format": "uint64",
+              "minimum": 0.0
+            },
+            "vault_info": {
+              "$ref": "#/definitions/VaultInfo"
+            }
+          }
+        }
+      }
+    }
+  }
+}
