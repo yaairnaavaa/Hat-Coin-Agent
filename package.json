@@ -1,0 +1,19 @@
+{
+  "name": "near-contract-agent-surgedev.near",
+  "version": "1.0.0",
+  "description": "AI agent for Near Protocol contract: surgedev.near",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc ./index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "@types/express": "^4.17.13",
+    "make-agent": "latest",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
